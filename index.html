@@ -72,7 +72,7 @@
             border-radius: 4px;
         }
 
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: var(--secondary);
             background: rgba(255, 255, 255, 0.1);
         }
@@ -206,20 +206,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            <div class="game-card">
-    <div class="game-img">
-        <i class="fas fa-basketball-ball"></i>
-    </div>
-    <div class="game-content">
-        <h3>Latvia vs Slovenia - Friendly</h3>
-        <div class="game-meta">
-            <span>August 16, 2025</span>
-            <span>International</span>
-        </div>
-        <p>Exciting friendly match between two European basketball powerhouses.</p>
-        <a href="latvia-vs-slovenia.html" class="btn">View Game</a>
-    </div>
-</div>
         }
 
         .game-card {
@@ -265,6 +251,49 @@
             font-size: 0.9rem;
         }
 
+        .quick-access {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 50px 0;
+            text-align: center;
+        }
+
+        .quick-access h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+        }
+
+        .access-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .access-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            width: 150px;
+            text-decoration: none;
+            color: white;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .access-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-5px);
+        }
+
+        .access-btn i {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
         footer {
             text-align: center;
             padding: 30px 0;
@@ -304,6 +333,16 @@
             .hero h2 {
                 font-size: 2.2rem;
             }
+
+            .access-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .access-btn {
+                width: 100%;
+                max-width: 250px;
+            }
         }
     </style>
 </head>
@@ -316,8 +355,8 @@
             </div>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Games</a></li>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="games.html">Games</a></li>
                     <li><a href="#">Teams</a></li>
                     <li><a href="#">Players</a></li>
                     <li><a href="#">Highlights</a></li>
@@ -336,7 +375,7 @@
             </div>
             
             <div>
-                <a href="#" class="btn">Browse All Games</a>
+                <a href="games.html" class="btn">Browse All Games</a>
                 <a href="#" class="btn btn-outline">Latest Highlights</a>
             </div>
         </section>
@@ -359,9 +398,45 @@
             </div>
         </section>
 
+        <section class="quick-access">
+            <h2>Quick Access</h2>
+            <div class="access-buttons">
+                <a href="games.html?team=latvia" class="access-btn">
+                    <i class="fas fa-flag"></i>
+                    <span>Latvia Games</span>
+                </a>
+                <a href="games.html?team=slovenia" class="access-btn">
+                    <i class="fas fa-flag"></i>
+                    <span>Slovenia Games</span>
+                </a>
+                <a href="games.html?competition=fiba" class="access-btn">
+                    <i class="fas fa-trophy"></i>
+                    <span>FIBA Games</span>
+                </a>
+                <a href="games.html" class="access-btn">
+                    <i class="fas fa-basketball-ball"></i>
+                    <span>All Games</span>
+                </a>
+            </div>
+        </section>
+
         <section class="recent-games">
             <h2 class="section-title">Recently Added Games</h2>
             <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-img">
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3>Latvia vs Slovenia - Friendly</h3>
+                        <div class="game-meta">
+                            <span>August 16, 2025</span>
+                            <span>International</span>
+                        </div>
+                        <p>Exciting friendly match between two European basketball powerhouses.</p>
+                        <a href="latvia-vs-slovenia.html" class="btn">View Game</a>
+                    </div>
+                </div>
                 <div class="game-card">
                     <div class="game-img">
                         <i class="fas fa-basketball-ball"></i>
@@ -390,20 +465,6 @@
                         <a href="#" class="btn">Watch Now</a>
                     </div>
                 </div>
-                <div class="game-card">
-                    <div class="game-img">
-                        <i class="fas fa-basketball-ball"></i>
-                    </div>
-                    <div class="game-content">
-                        <h3>NCAA Championship 2023</h3>
-                        <div class="game-meta">
-                            <span>April 3, 2023</span>
-                            <span>NCAA</span>
-                        </div>
-                        <p>Cinderella story completes improbable run to win the national championship.</p>
-                        <a href="#" class="btn">Watch Now</a>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -426,8 +487,8 @@
             
             searchButton.addEventListener('click', function() {
                 if (searchInput.value.trim() !== '') {
-                    alert(`Searching for: ${searchInput.value}`);
-                    searchInput.value = '';
+                    // Redirect to games page with search query
+                    window.location.href = `games.html?search=${encodeURIComponent(searchInput.value)}`;
                 } else {
                     alert('Please enter a search term');
                 }
