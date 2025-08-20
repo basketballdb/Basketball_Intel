@@ -179,6 +179,38 @@
             margin-bottom: 50px;
         }
 
+        /* List view styles */
+        .games-list.list-view {
+            grid-template-columns: 1fr;
+        }
+
+        .games-list.list-view .game-card {
+            display: flex;
+            height: 200px;
+        }
+
+        .games-list.list-view .game-img {
+            width: 30%;
+            height: 100%;
+            font-size: 3rem;
+        }
+
+        .games-list.list-view .game-content {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .games-list.list-view .game-teams {
+            margin: 5px 0;
+        }
+
+        .games-list.list-view .game-score {
+            margin: 5px 0;
+            font-size: 1.3rem;
+        }
+
         .game-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 12px;
@@ -338,6 +370,20 @@
             .filter-group {
                 width: 100%;
             }
+
+            .games-list.list-view .game-card {
+                flex-direction: column;
+                height: auto;
+            }
+
+            .games-list.list-view .game-img {
+                width: 100%;
+                height: 150px;
+            }
+
+            .games-list.list-view .game-content {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -464,7 +510,7 @@
                 date: "June 15, 2023",
                 competition: "NBA",
                 thumbnail: "nba",
-                link: "game-details.html?game=nba-finals-2023-game7" // Example link
+                link: "#" // Using placeholder links for other games
             },
             {
                 id: 3,
@@ -475,7 +521,7 @@
                 date: "May 21, 2023",
                 competition: "EuroLeague",
                 thumbnail: "euroleague",
-                link: "game-details.html?game=euroleague-final-2023" // Example link
+                link: "#"
             },
             {
                 id: 4,
@@ -486,7 +532,7 @@
                 date: "April 3, 2023",
                 competition: "NCAA",
                 thumbnail: "ncaa",
-                link: "game-details.html?game=ncaa-championship-2023" // Example link
+                link: "#"
             },
             {
                 id: 5,
@@ -497,7 +543,7 @@
                 date: "July 18, 2023",
                 competition: "International",
                 thumbnail: "fiba",
-                link: "game-details.html?game=usa-spain-exhibition" // Example link
+                link: "#"
             },
             {
                 id: 6,
@@ -508,7 +554,7 @@
                 date: "February 26, 2023",
                 competition: "FIBA Qualifiers",
                 thumbnail: "basketball",
-                link: "game-details.html?game=finland-latvia-qualifiers" // Example link
+                link: "#"
             }
         ];
 
