@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Games - Basketball Game Archive</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #1d3557;
+            --secondary: #e63946;
+            --accent: #f1faee;
+            --light: #a8dadc;
+            --dark: #457b9d;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--dark) 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 30px 0;
+            color: var(--accent);
+        }
+
+        .search-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .search-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-header h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .search-header p {
+            color: var(--accent);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .search-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            display: flex;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 0 25px;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .search-bar button:hover {
+            background: #c1121f;
+        }
+
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 180px;
+        }
+
+        .filter-group label {
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .filter-group select {
+            padding: 10px;
+            border-radius: 8px;
+            border: none;
+        }
+
+        .games-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-img {
+            height: 180px;
+            background: linear-gradient(45deg, #1d3557, #457b9d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        .game-content {
+            padding: 20px;
+        }
+
+        .game-content h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .game-teams {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 15px 0;
+            font-weight: 600;
+        }
+
+        .game-score {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin: 10px 0;
+            color: var(--secondary);
+        }
+
+        .game-card .btn {
+            padding: 8px 15px;
+            font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
+            display: block;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            grid-column: 1 / -1;
+        }
+
+        .no-results i {
+            font-size: 4rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+        }
+
+        .no-results h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .no-results p {
+            color: var(--accent);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .view-options {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0 40px;
+        }
+
+        .view-option {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+
+        .view-option.active {
+            background: var(--secondary);
+        }
+
+        .view-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .view-option.active:hover {
+            background: #c1121f;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-basketball-ball"></i>
+                <h1>HoopsArchive</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#" class="active">Games</a></li>
+                    <li><a href="#">Teams</a></li>
+                    <li><a href="#">Players</a></li>
+                    <li><a href="#">Highlights</a></li>
+                    <li><a href="#">About</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <h1 class="page-title">Find Basketball Games</h1>
+
+        <section class="search-section">
+            <div class="search-header">
+                <h2>Search Our Game Archive</h2>
+                <p>Find specific games by team, date, competition, or player</p>
+            </div>
+
+            <div class="search-controls">
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search for teams, players, or competitions...">
+                    <button id="search-button"><i class="fas fa-search"></i> Search</button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="team-filter">Team</label>
+                        <select id="team-filter">
+                            <option value="">All Teams</option>
+                            <option value="latvia">Latvia</option>
+                            <option value="slovenia">Slovenia</option>
+                            <option value="finland">Finland</option>
+                            <option value="usa">USA</option>
+                            <option value="spain">Spain</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="competition-filter">Competition</label>
+                        <select id="competition-filter">
+                            <option value="">All Competitions</option>
+                            <option value="fiba">FIBA Friendly</option>
+                            <option value="nba">NBA</option>
+                            <option value="euroleague">EuroLeague</option>
+                            <option value="ncaa">NCAA</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="date-filter">Date</label>
+                        <select id="date-filter">
+                            <option value="">Any Date</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label for="sort-filter">Sort By</label>
+                        <select id="sort-filter">
+                            <option value="newest">Newest First</option>
+                            <option value="oldest">Oldest First</option>
+                            <option value="relevant">Most Relevant</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view-options">
+                <button class="view-option active" data-view="grid"><i class="fas fa-th"></i> Grid View</button>
+                <button class="view-option" data-view="list"><i class="fas fa-list"></i> List View</button>
+            </div>
+        </section>
+
+        <section class="games-list" id="games-container">
+            <!-- Game cards will be generated here -->
+        </section>
+
+        <footer>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+            <p>&copy; 2023 HoopsArchive. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Sample game data
+        const games = [
+            {
+                id: 1,
+                title: "Latvia vs Slovenia",
+                team1: "Latvia",
+                team2: "Slovenia",
+                score: "100-88",
+                date: "August 16, 2025",
+                competition: "FIBA Friendly",
+                thumbnail: "basketball",
+                link: "latvia-vs-slovenia.html"
+            },
+            {
+                id: 2,
+                title: "NBA Finals 2023 - Game 7",
+                team1: "Miami Heat",
+                team2: "Denver Nuggets",
+                score: "89-94",
+                date: "June 15, 2023",
+                competition: "NBA",
+                thumbnail: "nba",
+                link: "#"
+            },
+            {
+                id: 3,
+                title: "EuroLeague Final 2023",
+                team1: "Real Madrid",
+                team2: "Olympiacos",
+                score: "79-78",
+                date: "May 21, 2023",
+                competition: "EuroLeague",
+                thumbnail: "euroleague",
+                link: "#"
+            },
+            {
+                id: 4,
+                title: "NCAA Championship 2023",
+                team1: "UConn Huskies",
+                team2: "San Diego State",
+                score: "76-59",
+                date: "April 3, 2023",
+                competition: "NCAA",
+                thumbnail: "ncaa",
+                link: "#"
+            },
+            {
+                id: 5,
+                title: "USA vs Spain - Exhibition",
+                team1: "USA",
+                team2: "Spain",
+                score: "98-88",
+                date: "July 18, 2023",
+                competition: "International",
+                thumbnail: "fiba",
+                link: "#"
+            },
+            {
+                id: 6,
+                title: "Finland vs Latvia - Qualifiers",
+                team1: "Finland",
+                team2: "Latvia",
+                score: "82-91",
+                date: "February 26, 2023",
+                competition: "FIBA Qualifiers",
+                thumbnail: "basketball",
+                link: "#"
+            }
+        ];
+
+        // DOM elements
+        const gamesContainer = document.getElementById('games-container');
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const teamFilter = document.getElementById('team-filter');
+        const competitionFilter = document.getElementById('competition-filter');
+        const dateFilter = document.getElementById('date-filter');
+        const sortFilter = document.getElementById('sort-filter');
+        const viewOptions = document.querySelectorAll('.view-option');
+
+        // Initialize the page with all games
+        displayGames(games);
+
+        // Set up event listeners
+        searchButton.addEventListener('click', handleSearch);
+        searchInput.addEventListener('keyup', function(event) {
+            if (event.key === 'Enter') {
+                handleSearch();
+            }
+        });
+
+        teamFilter.addEventListener('change', handleSearch);
+        competitionFilter.addEventListener('change', handleSearch);
+        dateFilter.addEventListener('change', handleSearch);
+        sortFilter.addEventListener('change', handleSearch);
+
+        viewOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                viewOptions.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                if (this.dataset.view === 'list') {
+                    gamesContainer.classList.add('list-view');
+                } else {
+                    gamesContainer.classList.remove('list-view');
+                }
+            });
+        });
+
+        // Search and filter function
+        function handleSearch() {
+            const searchText = searchInput.value.toLowerCase();
+            const teamValue = teamFilter.value;
+            const competitionValue = competitionFilter.value;
+            const dateValue = dateFilter.value;
+            const sortValue = sortFilter.value;
+
+            let filteredGames = games.filter(game => {
+                // Text search
+                const matchesSearch = 
+                    game.title.toLowerCase().includes(searchText) ||
+                    game.team1.toLowerCase().includes(searchText) ||
+                    game.team2.toLowerCase().includes(searchText) ||
+                    game.competition.toLowerCase().includes(searchText);
+                
+                // Filter by team
+                const matchesTeam = teamValue === '' || 
+                    game.team1.toLowerCase() === teamValue || 
+                    game.team2.toLowerCase() === teamValue;
+                
+                // Filter by competition
+                const matchesCompetition = competitionValue === '' || 
+                    game.competition.toLowerCase().includes(competitionValue);
+                
+                // Filter by date
+                const matchesDate = dateValue === '' || 
+                    game.date.includes(dateValue);
+                
+                return matchesSearch && matchesTeam && matchesCompetition && matchesDate;
+            });
+
+            // Sort results
+            if (sortValue === 'newest') {
+                filteredGames.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (sortValue === 'oldest') {
+                filteredGames.sort((a, b) => new Date(a.date) - new Date(b.date));
+            }
+
+            displayGames(filteredGames);
+        }
+
+        // Display games function
+        function displayGames(gamesArray) {
+            gamesContainer.innerHTML = '';
+            
+            if (gamesArray.length === 0) {
+                gamesContainer.innerHTML = `
+                    <div class="no-results">
+                        <i class="fas fa-search"></i>
+                        <h3>No Games Found</h3>
+                        <p>Try adjusting your search filters or search term to find what you're looking for.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            gamesArray.forEach(game => {
+                const gameCard = document.createElement('div');
+                gameCard.classList.add('game-card');
+                
+                gameCard.innerHTML = `
+                    <div class="game-img">
+                        <i class="fas fa-basketball-ball"></i>
+                    </div>
+                    <div class="game-content">
+                        <h3>${game.title}</h3>
+                        <div class="game-meta">
+                            <span>${game.date}</span>
+                            <span>${game.competition}</span>
+                        </div>
+                        <div class="game-teams">
+                            <span>${game.team1}</span>
+                            <span>VS</span>
+                            <span>${game.team2}</span>
+                        </div>
+                        <div class="game-score">${game.score}</div>
+                        <a href="${game.link}" class="btn">View Game Details</a>
+                    </div>
+                `;
+                
+                gamesContainer.appendChild(gameCard);
+            });
+        }
+
+        // Highlight the Latvia vs Slovenia game in the filters
+        window.addEventListener('load', function() {
+            // Set the URL parameters to highlight the Latvia vs Slovenia game
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchTeam = urlParams.get('team');
+            
+            if (searchTeam) {
+                teamFilter.value = searchTeam;
+                handleSearch();
+            }
+        });
+    </script>
+</body>
+</html>
