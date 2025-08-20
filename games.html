@@ -72,7 +72,7 @@
             border-radius: 4px;
         }
 
-        nav a:hover {
+        nav a:hover, nav a.active {
             color: var(--secondary);
             background: rgba(255, 255, 255, 0.1);
         }
@@ -402,10 +402,10 @@
                         <label for="date-filter">Date</label>
                         <select id="date-filter">
                             <option value="">Any Date</option>
+                            <option value="2025">2025</option>
                             <option value="2023">2023</option>
                             <option value="2022">2022</option>
                             <option value="2021">2021</option>
-                            <option value="2020">2020</option>
                         </select>
                     </div>
 
@@ -442,7 +442,7 @@
     </div>
 
     <script>
-        // Sample game data
+        // Sample game data with correct links
         const games = [
             {
                 id: 1,
@@ -453,7 +453,7 @@
                 date: "August 16, 2025",
                 competition: "FIBA Friendly",
                 thumbnail: "basketball",
-                link: "latvia-vs-slovenia.html"
+                link: "latvia-vs-slovenia.html" // Correct link to the game details page
             },
             {
                 id: 2,
@@ -464,7 +464,7 @@
                 date: "June 15, 2023",
                 competition: "NBA",
                 thumbnail: "nba",
-                link: "#"
+                link: "game-details.html?game=nba-finals-2023-game7" // Example link
             },
             {
                 id: 3,
@@ -475,7 +475,7 @@
                 date: "May 21, 2023",
                 competition: "EuroLeague",
                 thumbnail: "euroleague",
-                link: "#"
+                link: "game-details.html?game=euroleague-final-2023" // Example link
             },
             {
                 id: 4,
@@ -486,7 +486,7 @@
                 date: "April 3, 2023",
                 competition: "NCAA",
                 thumbnail: "ncaa",
-                link: "#"
+                link: "game-details.html?game=ncaa-championship-2023" // Example link
             },
             {
                 id: 5,
@@ -497,7 +497,7 @@
                 date: "July 18, 2023",
                 competition: "International",
                 thumbnail: "fiba",
-                link: "#"
+                link: "game-details.html?game=usa-spain-exhibition" // Example link
             },
             {
                 id: 6,
@@ -508,7 +508,7 @@
                 date: "February 26, 2023",
                 competition: "FIBA Qualifiers",
                 thumbnail: "basketball",
-                link: "#"
+                link: "game-details.html?game=finland-latvia-qualifiers" // Example link
             }
         ];
 
